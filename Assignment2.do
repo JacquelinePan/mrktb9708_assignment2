@@ -35,6 +35,8 @@ preserve
 drop if year >= 2021
 *create interaction variable between year and treatmentdummy 
 gen year_evertreated=year*treatmentdummy 
+*label the year_evertreated variable
+label variable year_evertreated "Year Treatment Interaction"
 * run the regression on just the "pre-data"
 reg outcome treatmentdummy year year_evertreated, r 
 *store regression
@@ -55,7 +57,7 @@ reg outcome time treatmentdummy did i.stateid i.year
 eststo Model2
 
 *export to LaTeX
-esttab Model1 Model2 using Assignment2.tex, $tableoptions keep(time treatmentdummy did _cons) star(* 0.10 ** 0.05 *** 0.01) collabels(none) stats(r2 N, fmt(%9.4f %9.0f %9.0fc) labels("R-squared" "Number of observations")) plain noabbrev nonumbers lines parentheses fragment
+esttab Model1 Model2 using Assignment2.tex, $tableoptions keep(time treatmentdummy year year_evertreated did _cons) star(* 0.10 ** 0.05 *** 0.01) collabels(none) stats(r2 N, fmt(%9.4f %9.0f %9.0fc) labels("R-squared" "Number of observations")) plain noabbrev nonumbers lines parentheses fragment
 
 
 
